@@ -13,19 +13,27 @@
 <header>
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" [routerLink]="['/']">COVID-19</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         <ul class="navbar-nav flex-grow">
             <li class="nav-item"><a class="nav-link text-dark" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link text-dark" href="usdata">U.S. Data</a></li>
             <!-- <li><a href="scale">Scales &amp; Arpeggios </a></li>
             <li><a href="duets">Duets</a></li> -->
         </ul>
+        </div>
     </nav>
-    <div class="bg">
-        <div class="mainbody">
+    <!-- <div class="bg"> -->
+        <div class="container">
             <h1>{{.Title}}</h1>
 
             <p>My First Web App written in Go. </p>
         </div>
-    </div>
+    <!-- </div> -->
 </body>
 
 </header>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <!-- <link href='https://fonts.googleapis.com/css?family=Rosario:400' rel='stylesheet' type='text/css'> -->
+    <title>{{.Title}}</title>
+</head>
+<header>
+
+    <body>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" [routerLink]="['/']">COVID-19</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                    aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <ul class="navbar-nav flex-grow">
+                    <li class="nav-item"><a class="nav-link text-dark" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="usdata">U.S. Data</a></li>
+                    <!-- <li><a href="scale">Scales &amp; Arpeggios </a></li>
+            <li><a href="duets">Duets</a></li> -->
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <h1 id="tableLabel">U.S. Data</h1>
+            
+            <p>This data is showing outcome calculations for the United States of America.</p>
+            <table class='table table-striped' aria-labelledby="tableLabel">
+                <thead>
+                    <tr>
+                        <th>Cases</th>
+                        <th>Total Tests</th>
+                        <th>Deaths</th>
+                        <th>Recovered</th>
+                        <th>Outcomes</th>
+                        <th>Mortality Rate</th>
+                        <th>Mortality Per 100,000</th>
+                        <th>Current Hospitalized</th>
+                        <th>Cumulative Hospitalized</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range $data := .USJsonData }}
+                    <tr>
+                        <td>{{ .Positive }}</td>
+                        <td>{{ .TotalTestResults }}</td>
+                        <td>{{ .Death }}</td>
+                        <td>{{ .Recovered }}</td>
+                        <td>{{ .Recovered }}</td>
+                        <td>{{ .Positive }}</td>
+                        <td>{{ .Positive }}</td>
+                        <td>{{ .HospitalizedCurrently }}</td>
+                        <td>{{ .HospitalizedCumulative }}</td>
+                    </tr>
+                    {{ end }}
+                </tbody>
+            </table>
+        </div>
+    </body>
+
+</header>
+
+</html>

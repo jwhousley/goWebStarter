@@ -1,16 +1,49 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
+	"regexp"
+	"time"
 )
 
 //PageVars variables for pages
 type PageVars struct {
-	Title string
+	Title      string
+	USJsonData UsData
+}
+
+// UsData type for JSON
+type UsData []struct {
+	Date                     int       `json:"date"`
+	States                   int       `json:"states"`
+	Positive                 int       `json:"positive"`
+	Negative                 int       `json:"negative"`
+	Pending                  int       `json:"pending"`
+	HospitalizedCurrently    int       `json:"hospitalizedCurrently"`
+	HospitalizedCumulative   int       `json:"hospitalizedCumulative"`
+	InIcuCurrently           int       `json:"inIcuCurrently"`
+	InIcuCumulative          int       `json:"inIcuCumulative"`
+	OnVentilatorCurrently    int       `json:"onVentilatorCurrently"`
+	OnVentilatorCumulative   int       `json:"onVentilatorCumulative"`
+	Recovered                int       `json:"recovered"`
+	DateChecked              time.Time `json:"dateChecked"`
+	Death                    int       `json:"death"`
+	Hospitalized             int       `json:"hospitalized"`
+	LastModified             time.Time `json:"lastModified"`
+	Total                    int       `json:"total"`
+	TotalTestResults         int       `json:"totalTestResults"`
+	PosNeg                   int       `json:"posNeg"`
+	DeathIncrease            int       `json:"deathIncrease"`
+	HospitalizedIncrease     int       `json:"hospitalizedIncrease"`
+	NegativeIncrease         int       `json:"negativeIncrease"`
+	PositiveIncrease         int       `json:"positiveIncrease"`
+	TotalTestResultsIncrease int       `json:"totalTestResultsIncrease"`
+	Hash                     string    `json:"hash"`
 }
 
 func main() {
@@ -19,12 +52,35 @@ func main() {
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css"))))
 
 	http.HandleFunc("/", Home)
+	http.HandleFunc("/usdata", USData)
 	http.ListenAndServe(getPort(), nil)
 }
 
 // func index(w http.ResponseWriter, r *http.Request) {
 // 	io.WriteString(w, `Hello World`)
 // }
+
+func formatCommas(num int) string {
+	str := fmt.Sprintf("%d", num)
+	re := regexp.MustCompile("(\\d+)(\\d{3})")
+	for n := ""; n != str; {
+		n = str
+		str = re.ReplaceAllString(str, "$1,$2")
+	}
+	return str
+}
+
+var myClient = &http.Client{Timeout: 10 * time.Second}
+
+func getJSON(url string, target interface{}) error {
+	r, err := myClient.Get(url)
+	if err != nil {
+		return err
+	}
+	//println(r)
+	defer r.Body.Close()
+	return json.NewDecoder(r.Body).Decode(target)
+}
 
 func getPort() string {
 	p := os.Getenv("PORT")
