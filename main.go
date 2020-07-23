@@ -70,10 +70,6 @@ func main() {
 	http.ListenAndServe(getPort(), nil)
 }
 
-// func index(w http.ResponseWriter, r *http.Request) {
-// 	io.WriteString(w, `Hello World`)
-// }
-
 func formatCommas(num int) string {
 	str := fmt.Sprintf("%d", num)
 	re := regexp.MustCompile("(\\d+)(\\d{3})")
