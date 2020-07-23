@@ -14,7 +14,21 @@ import (
 //PageVars variables for pages
 type PageVars struct {
 	Title      string
-	USJsonData UsData
+	USJsonData UsDataDisplay
+}
+
+// UsDataDisplay type for JSON
+type UsDataDisplay struct {
+	Date                   string
+	Cases                  string
+	HospitalizedCurrently  string
+	HospitalizedCumulative string
+	Outcomes               string
+	MortalityRate          string
+	MortalityPer100k       string
+	Death                  string
+	Recovered              string
+	TotalTestResults       string
 }
 
 // UsData type for JSON

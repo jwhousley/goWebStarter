@@ -47,19 +47,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{ range $data := .USJsonData }}
                     <tr>
-                        <td>{{ .Positive }}</td>
-                        <td>{{ .TotalTestResults }}</td>
-                        <td>{{ .Death }}</td>
-                        <td>{{ .Recovered }}</td>
-                        <td>{{ .Recovered }}</td>
-                        <td>{{ .Positive }}</td>
-                        <td>{{ .Positive }}</td>
-                        <td>{{ .HospitalizedCurrently }}</td>
-                        <td>{{ .HospitalizedCumulative }}</td>
+                        <td>{{ .USJsonData.Cases }}</td>
+                        <td>{{ .USJsonData.TotalTestResults }}</td>
+                        <td>{{ .USJsonData.Death }}</td>
+                        <td>{{ .USJsonData.Recovered }}</td>
+                        <td>{{ .USJsonData.Outcomes }}</td>
+                        <td>{{ .USJsonData.MortalityRate }}</td>
+                        <td>{{ .USJsonData.MortalityPer100k }}</td>
+                        <td>{{ .USJsonData.HospitalizedCurrently }}</td>
+                        <td>{{ .USJsonData.HospitalizedCumulative }}</td>
                     </tr>
-                    {{ end }}
                 </tbody>
             </table>
         </div>
